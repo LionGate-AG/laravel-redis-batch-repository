@@ -1,9 +1,13 @@
 {
-    "name": "rnix/laravel-redis-batch-repository",
-    "description": "Provides redis repository implementation for Laravel Queue Batch",
+    "name": "liongate/laravel-redis-batch-repository",
+    "description": "Provides redis repository implementation for Laravel Queue Batch up to Laravel v11.x.",
     "type": "library",
     "license": "MIT",
     "authors": [
+        {
+            "name": "Michael Schießl",
+            "email": "schiesslm@users.noreply.github.com"
+        },
         {
             "name": "Roman Nix",
             "email": "rnix@yandex.ru"
