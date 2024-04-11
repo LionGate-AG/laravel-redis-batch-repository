@@ -1,5 +1,5 @@
 {
-    "name": "liongate/laravel-redis-batch-repository",
+    "name": "rnix/laravel-redis-batch-repository",
     "description": "Provides redis repository implementation for Laravel Queue Batch up to Laravel v11.x.",
     "type": "library",
     "license": "MIT",
@@ -45,6 +45,6 @@
     "scripts": {
         "cs-fixer": "vendor/bin/php-cs-fixer fix src"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
