@@ -169,6 +169,11 @@ class RedisBatchRepository implements PrunableBatchRepository
         $callback();
     }
 
+    public function rollback()
+    {
+        //Not supported
+    }
+    
     public function prune(DateTimeInterface $before)
     {
         $totalDeleted = 0;
