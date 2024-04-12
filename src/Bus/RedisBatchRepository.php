@@ -11,6 +11,7 @@ use Illuminate\Bus\BatchFactory;
 use Illuminate\Bus\PendingBatch;
 use Illuminate\Bus\PrunableBatchRepository;
 use Illuminate\Bus\UpdatedBatchJobCounts;
+use Illuminate\Redis\Connections\Connection;
 use Illuminate\Redis\Connections\PhpRedisConnection;
 use Illuminate\Redis\Connections\PredisConnection;
 use Illuminate\Support\Str;
@@ -19,11 +20,11 @@ class RedisBatchRepository implements PrunableBatchRepository
 {
     protected BatchFactory $factory;
 
-    protected PhpRedisConnection|PredisConnection $redis;
+    protected Connection $redis;
 
     protected string $redisPrefix;
 
-    public function __construct(BatchFactory $factory, PhpRedisConnection|PredisConnection $redis, string $redisPrefix)
+    public function __construct(BatchFactory $factory, Connection $redis, string $redisPrefix)
     {
         $this->factory = $factory;
         $this->redis = $redis;
@@ -47,6 +48,8 @@ class RedisBatchRepository implements PrunableBatchRepository
             $batchesKeys = $this->redis->zrevrangebylex($orderedSetKey, $start, '-', 0, $limit);
         } elseif ($this->redis instanceof PredisConnection) {
             $batchesKeys = $this->redis->zrevrangebylex($orderedSetKey, $start, '-', ['LIMIT' => ['OFFSET' => 0, 'COUNT' => $limit]]);
+        } else {
+            throw new \Exception('Unsupported Redis connection class "' . get_class($this->redis) . '"!');
         }
 
         foreach ($batchesKeys as $batchKey) {
